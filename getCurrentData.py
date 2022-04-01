@@ -2,9 +2,6 @@
 import numpy as np    
 import pandas as pd
 from bs4 import BeautifulSoup
-import locale
-
-locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 
 def convert_to_xlsx():
     
@@ -21,14 +18,16 @@ def convert_to_xlsx():
 
 
 def get_tweet_from_df(df):
-    fuellstand= locale.atof(df.iloc[0,2])
-    date= df.iloc[0,0]
-    injection=locale.atof(df.iloc[0,4])
-    withdrawal=locale.atof(df.iloc[0,5])
-    trend= locale.atof(df.iloc[0,3])
-    injection_capacity= locale.atof(df.iloc[0,7])
-    withdrawal_capacity= locale.atof(df.iloc[0,8])
 
+    fuellstand = float(df.iloc[0,2].replace(",","."))
+    date= df.iloc[0,0]
+    injection= df.iloc[0,4].replace(",","")
+    withdrawal=df.iloc[0,5].replace(",","")
+    trend= df.iloc[0,3].replace(",",".")
+    injection_capacity= df.iloc[0,7].replace(",","")
+    withdrawal_capacity= df.iloc[0,8].replace(",","")
+    
+    
     def progessbar(fuellstand):
         bar=''
         maxchars= 10
@@ -43,8 +42,8 @@ def get_tweet_from_df(df):
     tweet = "Automatisiert \n\n"+ \
     f"Stand:          {date} \n"+ \
     f"Gas-Fuellstand: {progessbar(fuellstand)} {fuellstand}%\n" + \
-    f"Gas-Zufuhr:     {injection:.1f} GWh von max. {injection_capacity:.1f} GWh\n" + \
-    f"Gas-Entnahme:   {withdrawal:.1f} GWh von max. {withdrawal_capacity:.1f} GWh"
+    f"Gas-Zufuhr:     {injection} GWh von max. {injection_capacity} GWh\n" + \
+    f"Gas-Entnahme:   {withdrawal} GWh von max. {withdrawal_capacity} GWh"
     
     print(tweet)
     
