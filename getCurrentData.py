@@ -46,7 +46,7 @@ def get_tweet_from_df(df):
     tweet= "Automatisiert - Stand: "+ date +" \n" +"Gas-Fuellstand: " + progessbar(fuellstand) + " "+str(fuellstand) + "%,\n"\
         + ", " + " Gas-Injection:" +  str(injection) + "GWh, " + str(withdrawal) + "GWh, " + str(trend)
     
-    print(tweet)
+    #print(tweet)
     
     
     
@@ -54,9 +54,9 @@ def get_tweet_from_df(df):
 def main():
     convert_to_xlsx()
     df= pd.read_excel('Germnay.xlsx')
-    get_tweet_from_df(df)
+    tweet = get_tweet_from_df(df)
     
-    
+    return tweet
 
 if __name__ == '__main__':
     main()

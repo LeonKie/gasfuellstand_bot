@@ -1,5 +1,5 @@
 numpy
 tweepy == 3.9.0
-pyexcel
-pyexcel-xls
-pyexcel-xlsx
+pyexcel==0.6.6
+pyexcel-xls==0.7.0
+pyexcel-xlsx==0.6.0
