@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import locale
 
 
-locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
+locale.setlocale(locale.LC_ALL,'de_DE.utf8')
 
 
 def convert_to_xlsx():
@@ -46,7 +46,7 @@ def get_tweet_from_df(df):
     tweet= "Automatisiert - Stand: "+ date +" \n" +"Gas-Fuellstand: " + progessbar(fuellstand) + " "+str(fuellstand) + "%,\n"\
         + ", " + " Gas-Injection:" +  str(injection) + "GWh, " + str(withdrawal) + "GWh, " + str(trend)
     
-    #print(tweet)
+    print(tweet)
     
     
     
