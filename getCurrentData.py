@@ -45,7 +45,7 @@ def get_tweet_from_df(df):
     f"Gas-Zufuhr:     {injection} GWh von max. {injection_capacity} GWh\n" + \
     f"Gas-Entnahme:   {withdrawal} GWh von max. {withdrawal_capacity} GWh"
     
-    print(tweet)
+    return tweet
     
     
     
