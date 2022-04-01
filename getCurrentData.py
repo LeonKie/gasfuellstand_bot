@@ -2,12 +2,9 @@
 import numpy as np    
 import pandas as pd
 from bs4 import BeautifulSoup
-
 import locale
 
-
-locale.setlocale(locale.LC_ALL,'de_DE.utf8')
-
+locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 
 def convert_to_xlsx():
     
@@ -43,8 +40,11 @@ def get_tweet_from_df(df):
                 bar+='░░'
         return bar
     
-    tweet= "Automatisiert - Stand: "+ date +" \n" +"Gas-Fuellstand: " + progessbar(fuellstand) + " "+str(fuellstand) + "%,\n"\
-        + ", " + " Gas-Injection:" +  str(injection) + "GWh, " + str(withdrawal) + "GWh, " + str(trend)
+    tweet = "Automatisiert \n\n"+ \
+    f"Stand:          {date} \n"+ \
+    f"Gas-Fuellstand: {progessbar(fuellstand)} {fuellstand}%\n" + \
+    f"Gas-Zufuhr:     {injection:.1f} GWh von max. {injection_capacity:.1f} GWh\n" + \
+    f"Gas-Entnahme:   {withdrawal:.1f} GWh von max. {withdrawal_capacity:.1f} GWh"
     
     print(tweet)
     
