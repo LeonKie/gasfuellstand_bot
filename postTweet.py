@@ -31,8 +31,9 @@ def main():
    
     
     try:
-        status = api.update_status(status=tweet)
-    except:
+        api.update_status(status=tweet)
+    except Exception as e:
+        print(e)
         print("Tweet failed")
         
     
