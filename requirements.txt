@@ -1,4 +1,6 @@
 numpy
+requests
+datetime
 pandas
 bs4
 lxml

@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 
+
+
 def convert_to_xlsx():
     
     with open('Germany.xls') as xml_file:
@@ -53,7 +55,7 @@ def main():
     convert_to_xlsx()
     df= pd.read_excel('Germnay.xlsx')
     tweet = get_tweet_from_df(df)
-    
+    print(tweet)
     return tweet
 
 if __name__ == '__main__':
