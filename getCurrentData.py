@@ -26,6 +26,7 @@ def get_tweet_from_df(df):
     injection= df.iloc[0,4].replace(",","")
     withdrawal=df.iloc[0,5].replace(",","")
     trend= df.iloc[0,3].replace(",",".")
+    trend_icon= "📈" if float(trend)>0 else "📉"
     injection_capacity= df.iloc[0,7].replace(",","")
     withdrawal_capacity= df.iloc[0,8].replace(",","")
     
@@ -44,7 +45,8 @@ def get_tweet_from_df(df):
     tweet = f"Stand: \t{date} \n"+ \
     f"Gas-Fuellstand: \t{progessbar(fuellstand)} {fuellstand}%\n" + \
     f"Gas-Zufuhr: \t{injection} GWh von max. {injection_capacity} GWh\n" + \
-    f"Gas-Entnahme: \t{withdrawal} GWh von max. {withdrawal_capacity} GWh"
+    f"Gas-Entnahme: \t{withdrawal} GWh von max. {withdrawal_capacity} GWh" + \
+    f"\nTrend: \t{trend}% {trend_icon}" 
     
     return tweet
     
