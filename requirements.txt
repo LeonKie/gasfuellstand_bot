@@ -3,7 +3,7 @@ pandas
 bs4
 lxml
 beautifulsoup4==4.10.0
-tweepy == 3.9.0
+tweepy
 pyexcel==0.6.6
 pyexcel-xls==0.7.0
 pyexcel-xlsx==0.6.0
