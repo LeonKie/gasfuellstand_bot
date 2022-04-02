@@ -30,7 +30,7 @@ def get_tweet_from_df(df):
     
     def progessbar(fuellstand):
         bar=''
-        maxchars= 10
+        maxchars= 6
         fuellstand_int= int(fuellstand/100*maxchars)
         for i in range(0,maxchars):
             if i<=fuellstand_int:
@@ -39,10 +39,10 @@ def get_tweet_from_df(df):
                 bar+='░░'
         return bar
     
-    tweet = f"Stand:          {date} \n"+ \
-    f"Gas-Fuellstand: {progessbar(fuellstand)} {fuellstand}%\n" + \
-    f"Gas-Zufuhr:     {injection} GWh von max. {injection_capacity} GWh\n" + \
-    f"Gas-Entnahme:   {withdrawal} GWh von max. {withdrawal_capacity} GWh"
+    tweet = f"Stand: \t{date} \n"+ \
+    f"Gas-Fuellstand: \t{progessbar(fuellstand)} {fuellstand}%\n" + \
+    f"Gas-Zufuhr: \t{injection} GWh von max. {injection_capacity} GWh\n" + \
+    f"Gas-Entnahme: \t{withdrawal} GWh von max. {withdrawal_capacity} GWh"
     
     return tweet
     
