@@ -11,18 +11,6 @@ def main():
         "access_token"        : os.getenv("TWITTER_ACCESS_TOKEN"),
         "access_token_secret" : os.getenv("TWITTER_ACCESS_TOKEN_SECRET") 
     }
-    '''
-    auth = tweepy.OAuthHandler(
-            twitter_auth_keys['consumer_key'],
-            twitter_auth_keys['consumer_secret']
-            )
-    auth.set_access_token(
-            twitter_auth_keys['access_token'],
-            twitter_auth_keys['access_token_secret']
-            )
-    api = tweepy.API(auth)
-    '''
-
 
     client = tweepy.Client(consumer_key=twitter_auth_keys['consumer_key'],
                         consumer_secret= twitter_auth_keys['consumer_secret'],
@@ -36,7 +24,6 @@ def main():
     
     try:
         client.create_tweet(text=tweet)
-        #api.update_status(status=tweet)
     except Exception as e:
         print(e)
         print("Tweet failed")

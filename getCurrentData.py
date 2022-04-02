@@ -1,9 +1,10 @@
  
 import pandas as pd
 
-import datetime
+from datetime import date , timedelta
 import json
 import requests
+import os
 
 def get_gas_data(api_key : str, date_start : str, date_end : str) -> pd.DataFrame:
     """
@@ -42,14 +43,14 @@ def get_gas_data(api_key : str, date_start : str, date_end : str) -> pd.DataFram
 
 def get_tweet_from_df(df):
 
-    fuellstand = df.iloc[0,2]
-    date= df.iloc[0,0]
-    injection= df.iloc[0,4]
-    withdrawal=df.iloc[0,5]
-    trend= df.iloc[0,3]
+    fuellstand = df.iloc[0,3]
+    date= df.iloc[0,1]
+    injection= df.iloc[0,5]
+    withdrawal=df.iloc[0,6]
+    trend= df.iloc[0,4]
     trend_icon= "📈" if float(trend)>0 else "📉"
-    injection_capacity= df.iloc[0,7]
-    withdrawal_capacity= df.iloc[0,8]
+    injection_capacity= df.iloc[0,8]
+    withdrawal_capacity= df.iloc[0,9]
     
     
     def progessbar(fuellstand):
@@ -64,10 +65,10 @@ def get_tweet_from_df(df):
         return bar
     
     tweet = f"Stand: \t{date} \n"+ \
-    f"Gas-Fuellstand: \t{progessbar(fuellstand)} {fuellstand:.0f}%\n" + \
+    f"Gas-Fuellstand: \t{progessbar(fuellstand)} {fuellstand:.2f}%\n" + \
     f"Gas-Zufuhr: \t{injection:.2f} GWh von max. {injection_capacity:.2f} GWh\n" + \
     f"Gas-Entnahme: \t{withdrawal:.2f} GWh von max. {withdrawal_capacity:.2f} GWh" + \
-    f"\nTrend: \t{trend}% {trend_icon}" 
+    f"\nTrend: \t{trend:.2f}% {trend_icon}" 
     
     return tweet
     
@@ -75,11 +76,16 @@ def get_tweet_from_df(df):
     
 
 def main():
-    api_key = "ENTER_API_KEY_HERE"
-    start = datetime.date(2022,1,1).isoformat()
-    end = datetime.date(2022,3,31).isoformat()
+    api_key = os.getenv("AGSI_API_KEY")
+    DATE=date.today()
+    end=DATE.strftime('%Y-%m-%d')
+    start= DATE-timedelta(days=30)
+    start=start.strftime('%Y-%m-%d')
+    
     
     df = get_gas_data(api_key,start,end)
+    
+    print(df)
     tweet = get_tweet_from_df(df)
     print(tweet)
     return tweet
