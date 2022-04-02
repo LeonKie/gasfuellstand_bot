@@ -24,10 +24,10 @@ def main():
     '''
 
 
-    client = tweepy.Client(twitter_auth_keys['consumer_key'],
-                        twitter_auth_keys['consumer_secret'],
-                        twitter_auth_keys['access_token'],
-                        twitter_auth_keys['access_token_secret']
+    client = tweepy.Client(consumer_key=twitter_auth_keys['consumer_key'],
+                        consumer_secret= twitter_auth_keys['consumer_secret'],
+                        access_token=twitter_auth_keys['access_token'],
+                        acces_token_secret=twitter_auth_keys['access_token_secret']
       )
     
 
