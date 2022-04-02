@@ -32,7 +32,7 @@ def main():
     
 
     tweet = getCurrentData.main()
-   
+    print(tweet)
     
     try:
         client.create_tweet(text=tweet)
