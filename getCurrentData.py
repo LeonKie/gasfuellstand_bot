@@ -39,8 +39,7 @@ def get_tweet_from_df(df):
                 bar+='░░'
         return bar
     
-    tweet = "\U0001F916 Automatisiert \n\n"+ \
-    f"Stand:          {date} \n"+ \
+    tweet = f"Stand:          {date} \n"+ \
     f"Gas-Fuellstand: {progessbar(fuellstand)} {fuellstand}%\n" + \
     f"Gas-Zufuhr:     {injection} GWh von max. {injection_capacity} GWh\n" + \
     f"Gas-Entnahme:   {withdrawal} GWh von max. {withdrawal_capacity} GWh"
