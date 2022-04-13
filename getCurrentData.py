@@ -6,7 +6,7 @@ import json
 import requests
 import os
 
-def get_gas_data(api_key : str, date_start : str, date_end : str) -> pd.DataFrame:
+def get_gas_data(date_start : str, date_end : str):
     """
     Parameters:
     api_key : str
@@ -20,15 +20,18 @@ def get_gas_data(api_key : str, date_start : str, date_end : str) -> pd.DataFram
         Pandas dataframe
 
     """
-
-    url = f"https://agsi.gie.eu/api/data/de?from={date_start}&till={date_end}"
-    headers = {"x-key": api_key}
-    content = requests.request("GET",url, headers=headers)
+    
+    url = f"https://agsi.gie.eu/api?country=DE&from={date_start}&to={date_end}&page=1&size=5"
+    
+    print(url)
+    content = requests.request("GET",url)
     gas_data_json = json.loads(content.content)
-
-    df = pd.DataFrame.from_dict(gas_data_json)
+    gas_data_json= gas_data_json['data'][-1]
+    print(gas_data_json)
+    #df = pd.DataFrame.from_dict(gas_data_json)
+    '''
     dict_columns_type = {'status': str,
-                    'gasDayStartedOn': str,
+                    'gasDayStart': str,
                     'gasInStorage': float,
                     'full': float,
                     'trend': float,
@@ -39,18 +42,22 @@ def get_gas_data(api_key : str, date_start : str, date_end : str) -> pd.DataFram
                     'workingGasVolume': float,
                     'info': str
                 }
-    return df.astype(dict_columns_type)
+    '''
+    #return df.astype(dict_columns_type)
+    
+    return gas_data_json
+    
 
 def get_tweet_from_df(df):
 
-    fuellstand = df.iloc[0,3]
-    date= df.iloc[0,1]
-    injection= df.iloc[0,5]
-    withdrawal=df.iloc[0,6]
-    trend= df.iloc[0,4]
+    fuellstand = float(df['full'])
+    date= df['gasDayStart']
+    injection= float(df['injection'])
+    withdrawal= float(df['withdrawal'] )
+    trend= float(df['trend'])
     trend_icon= "📈" if float(trend)>0 else "📉"
-    injection_capacity= df.iloc[0,8]
-    withdrawal_capacity= df.iloc[0,9]
+    injection_capacity= float(df['injectionCapacity'])
+    withdrawal_capacity= float(df['withdrawalCapacity'])
     
     
     def progessbar(fuellstand):
@@ -76,14 +83,13 @@ def get_tweet_from_df(df):
     
 
 def main():
-    api_key = os.getenv("AGSI_API_KEY")
     DATE=date.today()
     end=DATE.strftime('%Y-%m-%d')
-    start= DATE-timedelta(days=30)
+    start= DATE-timedelta(days=5)
     start=start.strftime('%Y-%m-%d')
     
     
-    df = get_gas_data(api_key,start,end)
+    df = get_gas_data(start,end)
     
     print(df)
     tweet = get_tweet_from_df(df)
