@@ -24,12 +24,13 @@ def get_gas_data(date_start : str, date_end : str):
     url = f"https://agsi.gie.eu/api?country=DE&from={date_start}&to={date_end}&page=1&size=5"
     
     api_key=  os.getenv("AGSI_API_KEY"),
+    print(api_key)
     
     print(url)
     headers = {"x-key": str(api_key)}
     #content = requests.get(url, headers=headers)
     content = requests.request("GET",url, headers=headers)
-    
+    print(content)
     gas_data_json = json.loads(content.content)
     gas_data_json= gas_data_json['data'][-1]
     print(gas_data_json)
