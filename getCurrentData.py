@@ -23,8 +23,16 @@ def get_gas_data(date_start : str, date_end : str):
     
     url = f"https://agsi.gie.eu/api?country=DE&from={date_start}&to={date_end}&page=1&size=5"
     
+    api_key=  os.getenv("AGSI_API_KEY"),
+    
     print(url)
-    content = requests.request("GET",url)
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36',
+               'Accept': 'application/yang-data+json',
+                "x-key": api_key
+               }
+    #content = requests.get(url, headers=headers)
+    content = requests.request("GET",url, headers=headers)
+    
     gas_data_json = json.loads(content.content)
     gas_data_json= gas_data_json['data'][-1]
     print(gas_data_json)
